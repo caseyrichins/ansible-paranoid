@@ -1,0 +1,6 @@
+---
+- name: Add Key for Duo Repo
+  apt_key:
+    id: 15D32EFC
+    url: https://duo.com/APT-GPG-KEY-DUO
+    state: present

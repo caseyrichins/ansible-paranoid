@@ -1,0 +1,24 @@
+---
+- name: Ensure system is up to date
+  apt:
+    upgrade: dist
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 1800
+
+- name: Install unattended-upgrades package
+  apt:
+    name: unattended-upgrades
+    state: present
+
+- name: Copy configuration files for auto updates
+  copy:
+    src: "{{role_path}}/files/{{apt_file}}"
+    dest: "/etc/apt/apt.conf.d/{{apt_file}}"
+    backup: yes
+  with_items:
+    - 10periodic
+    - 50unattended-upgrades
+    - 20auto-upgrades
+  loop_control:
+    loop_var: apt_file

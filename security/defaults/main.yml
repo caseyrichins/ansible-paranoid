@@ -1,2 +1,2 @@
 ---
-# defaults file for ansible-paranoid/security
+enable_2FA: 'false | default(omit)'

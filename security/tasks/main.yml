@@ -1,2 +1,9 @@
 ---
-# tasks file for ansible-paranoid/security
+- name: Enable Duo Security
+  include_tasks: setup_duo_security.yml
+  when: (enable_2FA is defined and enable_2FA and enable_2FA == true)
+
+- name: Enable Automatic Security Updates
+  include_tasks: automatic_security_updates_ubuntu.yml
+  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
