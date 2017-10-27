@@ -1,0 +1,21 @@
+---
+- name: Install common packages
+  apt:
+    name: "{{ package }}"
+    state: present
+  with_items:
+    - vim
+    - htop
+    - clamav
+    - nmap
+    - screen
+    - nfs-common
+    - mysql-common
+    - ipcalc
+    - gnupg2
+    - git
+    - dnsutils
+    - ferm
+    - iptables-persistent
+  loop_control:
+    loop_var: package

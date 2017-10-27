@@ -1,0 +1,33 @@
+---
+- name: Add Ansible Repository PPA
+  apt_repository:
+    repo: ppa:ansible/ansible
+
+- name: Add X2Go Repository PPA
+  apt_repository:
+    repo: ppa:x2go/stable
+
+- name: Enable Java Repo PPA
+  apt_repository:
+    repo: ppa:webupd8team/java
+
+- name: Enable OBSProject PPA
+  apt_repository:
+    repo: ppa:obsproject/obs-studio
+
+- name: Get Google Key
+  apt_key:
+    id: "{{ google_keys }}"
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    state: present
+  with_items:
+    - 7FAC5991
+    - D38B4796
+  loop_control:
+    loop_var: google_keys
+
+- name: Install google Repo
+  apt_repository:
+    repo: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main'
+    state: present
+    filename: 'google-chrome'

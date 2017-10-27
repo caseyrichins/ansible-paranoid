@@ -1,2 +1,18 @@
 ---
-# tasks file for ansible-paranoid/desktop
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+    update_cache: yes
+    cache_valid_time: 3600
+    autoremove: yes
+
+- name: Import Tasks
+  include_tasks: "{{ task_file }}"
+  with_items:
+    - enable_repos.yml
+    - common_pkgs.yml
+  loop_control:
+    loop_var: task_file
+
+- name: Execute Desktop Installation
+  include_tasks: install_desktop.yml

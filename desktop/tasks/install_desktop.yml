@@ -1,0 +1,34 @@
+---
+- name: Install common desktop packages
+  apt:
+    name: "{{ desktop_pkg }}"
+    state: present
+  with_items:
+    - xserver-xorg
+    - x11-common
+    - i3
+    - i3-wm
+    - i3lock
+    - i3status
+    - slim
+    - google-chrome-stable
+    - krdc
+    - feh
+    - arandr
+    - rdesktop
+  loop_control:
+    loop_var: desktop_pkg
+
+
+- name: Install extra desktop packages
+  apt:
+    name: "{{ extra_pkg }}"
+    state: present
+  with_items:
+    - libdvdcss2
+    - libdvdnav4
+    - libdvdread4
+    - k3b
+    - libreoffice
+  loop_control:
+    loop_var: extra_pkg
