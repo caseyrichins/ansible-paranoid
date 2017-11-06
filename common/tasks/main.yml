@@ -1,2 +1,12 @@
 ---
-# tasks file for ansible-paranoid/common
+- name: Manage Users
+  include_tasks: manage_users.yml
+  tags: [ 'manage-users', 'manage-users-config', 'manage-users-users' ]
+
+- name: Manage SSH Keys
+  include_tasks: manage_ssh_keys.yml
+  tags: [ 'manage-users', 'manage-users-config', 'manage-users-ssh' ]
+ 
+- name: Manage Sudo Access
+  include_tasks: manage_sudo.yml
+  tags: [ 'manage-users', 'manage-users-config', 'manage-users-sudo' ]
