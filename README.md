@@ -29,8 +29,7 @@ If you would like to implement a new feature then consider what kind of change i
 * **Major Changes** that you wish to contribute to the project should be discussed first in an
   [GitHub issue][github-issues] that clearly outlines the changes and benefits of the feature.
 * **Small Changes** can directly be crafted and submitted to the [GitHub Repository][github]
-  as a Pull Request. See the section about [Pull Request Submission Guidelines](#submit-pr), and
-  for detailed information the [core development documentation][developers].
+  as a Pull Request. See the section about [Pull Request Submission Guidelines](#submit-pr).
 
 ### <a name="docs"></a> Want a Doc Fix?
 
@@ -58,3 +57,77 @@ the effort we can spend fixing issues and adding new features, by not reporting 
 
 The "[new issue][github-new-issue]" form contains a number of prompts that you should fill out to
 make it easier to understand and categorize the issue.
+
+## <a name="submit-pr"></a> Pull Request Submission Guidelines
+Before you submit your pull request consider the following guidelines:
+
+* Search [GitHub](https://github.com/caseyrichins/ansible-paranoid/pulls) for an open or closed Pull Request
+  that relates to your submission. You don't want to duplicate effort.
+* Make your changes in a new git branch:
+
+    ```shell
+    git checkout -b my-fix-branch master
+    ```
+
+* Create your patch commit, **including appropriate test cases**.
+
+    ```shell
+    git commit -a
+    ```
+  Note: the optional commit `-a` command line option will automatically "add" and "rm" edited files.
+
+* Before creating the Pull Request, run all tests a last time:
+
+* Push your branch to GitHub:
+
+    ```shell
+    git push origin my-fix-branch
+    ```
+
+* If we suggest changes, then:
+
+  * Make the required updates.
+  * Re-run the playbooks to ensure tests are still passing.
+  * Commit your changes to your branch (e.g. `my-fix-branch`).
+  * Push the changes to your GitHub repository (this will update your Pull Request).
+
+    You can also amend the initial commits and force push them to the branch.
+
+    ```shell
+    git rebase master -i
+    git push origin my-fix-branch -f
+    ```
+
+    This is generally easier to follow, but seperate commits are useful if the Pull Request contains
+    iterations that might be interesting to see side-by-side.
+
+That's it! Thank you for your contribution!
+
+#### After your pull request is merged
+
+After your pull request is merged, you can safely delete your branch and pull the changes
+from the main (upstream) repository:
+
+* Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:
+
+    ```shell
+    git push origin --delete my-fix-branch
+    ```
+
+* Check out the master branch:
+
+    ```shell
+    git checkout master -f
+    ```
+
+* Delete the local branch:
+
+    ```shell
+    git branch -D my-fix-branch
+    ```
+
+* Update your master with the latest upstream version:
+
+    ```shell
+    git pull --ff upstream master
+    ```
