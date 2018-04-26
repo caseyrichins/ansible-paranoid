@@ -36,3 +36,21 @@
   apt_repository:
     repo: ppa:yubico/stable
 
+- name: Enable DNSCrypt PPA
+  apt_repository:
+    repo: ppa:anton+/dnscrypt
+    codename: xenial
+
+- name: Eanble ledger accounting PPA
+  apt_repository:
+    repo: ppa:mbudde/ledger
+    codename: xenial
+
+- name: Eanble ledger accounting PPA
+  apt_repository:
+    repo: ppa:mkusb/ppa
+
+- name: Enable Duosecurity Repository
+  apt_repository:
+    repo: 'deb https://pkg.duosecurity.com/Ubuntu xenial main'
+    filename: 'duosecurity'

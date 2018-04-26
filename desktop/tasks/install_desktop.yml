@@ -16,6 +16,11 @@
     - feh
     - arandr
     - rdesktop
+    - dnscrypt-proxy
+    - dnscrypt-proxy-plugins
+    - mkusb
+    - terminator
+    - irssi
   loop_control:
     loop_var: desktop_pkg
 
@@ -30,5 +35,8 @@
     - libdvdread4
     - k3b
     - libreoffice
+    - ledger
+    - obs-studio
+    - dvd+rw-tools
   loop_control:
     loop_var: extra_pkg

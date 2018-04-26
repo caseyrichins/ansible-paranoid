@@ -17,5 +17,6 @@
     - dnsutils
     - ferm
     - iptables-persistent
+    - elinks
   loop_control:
     loop_var: package
