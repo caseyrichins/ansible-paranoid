@@ -1,0 +1,21 @@
+---
+- name: get the package Ubuntu 14.04
+  apt_repository:
+    repo: 'https://mega.nz/linux/MEGAsync/xUbuntu_14.04/'
+    filename: megasync
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "trusty"
+- name: get the package Ubuntu 16.04
+  apt_repository:
+    repo: 'https://mega.nz/linux/MEGAsync/xUbuntu_16.04/'
+    filename: megasync
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "xenial"
+- name: get the package Ubuntu 17.10
+  apt_repository:
+    repo: 'https://mega.nz/linux/MEGAsync/xUbuntu_17.10/'
+    filename: megasync
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "artful"
+- name: get the package Ubuntu 18.04
+  apt_repository:
+    repo: 'https://mega.nz/linux/MEGAsync/xUbuntu_18.04/'
+    filename: megasync
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "bionic"
