@@ -22,6 +22,8 @@
     - mkusb
     - terminator
     - irssi
+    - pulseaudio
+    - alsa-utils
   loop_control:
     loop_var: desktop_pkg
 
