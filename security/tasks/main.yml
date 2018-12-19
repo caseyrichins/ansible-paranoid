@@ -7,3 +7,6 @@
   include_tasks: automatic_security_updates_ubuntu.yml
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
+- name: Secure Default SSHD Config
+  include_tasks: secure_sshd_server.yml
+  tags: ['ssh', 'lockdown', 'secure_configs']
