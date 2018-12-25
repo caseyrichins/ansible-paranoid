@@ -8,5 +8,12 @@
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
 - name: Secure Default SSHD Config
-  include_tasks: secure_sshd_server.yml
-  tags: ['ssh', 'lockdown', 'secure_configs']
+  include_tasks: 
+    file: secure_sshd_server.yml
+    apply:
+      tags: 
+        - ssh
+        - lockdown
+        - secure_configs
+  tags:
+    - always

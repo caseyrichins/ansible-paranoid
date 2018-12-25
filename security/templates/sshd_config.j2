@@ -31,8 +31,8 @@ LogLevel VERBOSE
 
 # Authentication:
 # Password based logins are disabled - only public key based logins are allowed.
-{% if password_login is defined and password_login == "enabled" %}
-AuthenticationMethods publickey,password publickey,keyboard-interactive
+{% if sshd_config.password_login is defined and sshd_config.password_login == "enabled" %}
+AuthenticationMethods publickey,password publickey
 {% else %}
 AuthenticationMethods publickey
 {% endif %}
@@ -62,7 +62,7 @@ PubkeyAuthentication yes
 #IgnoreRhosts yes
 
 # To disable tunneled clear text passwords, change to no here!
-{% if password_login is defined and password_login == "enabled" %}
+{%- if sshd_config.password_login is defined and sshd_config.password_login == "enabled" %}
 PasswordAuthentication yes
 {% else %}
 PasswordAuthentication no
@@ -127,19 +127,19 @@ AcceptEnv LANG LC_*
 # override default of no subsystems
 Subsystem	sftp	/usr/lib/openssh/sftp-server -f AUTHPRIV -l INFO
 
-{% if access.restrict is defined and access.restrict == true %}
-  {%- if access.deny_users is defined and access.deny_users %}
-DenyUsers {%- for names in access.deny_users %} {{ names }}{% if not loop.last %}{% endif %}{% endfor -%}
-  {% endif -%}
-  {%- if access.allow_users is defined and access.allow_users %}
-AllowUsers {%- for names in access.allow_users %} {{ names }}{% if not loop.last %}{% endif %}{% endfor -%}
-  {% endif -%}
-  {%- if access.deny_groups is defined and access.deny_groups %}
-DenyGroups {%- for names in access.deny_groups %} {{ names }}{% if not loop.last %}{% endif %}{% endfor -%}
-  {% endif -%}
-  {%- if access.allow_groups is defined and access.allow_groups %}
-AllowGroups {%- for names in access.allow_groups %} {{ names }}{% if not loop.last %}{% endif %}{% endfor -%}
-  {% endif -%}
+{% if sshd_config.access.restrict is defined and sshd_config.access.restrict == true %}
+  {%- if sshd_config.access.deny_users is defined and sshd_config.access.deny_users %}
+DenyUsers {% for names in sshd_config.access.deny_users %} {{ names }}{% if not loop.last %}{% endif %}{% endfor %}
+  {% endif %}
+  {%- if sshd_config.access.allow_users is defined and sshd_config.access.allow_users %}
+AllowUsers {% for names in sshd_config.access.allow_users %} {{ names }}{% if not loop.last %}{% endif %}{% endfor %}
+  {% endif %}
+  {%- if sshd_config.access.deny_groups is defined and sshd_config.access.deny_groups %}
+DenyGroups {% for names in sshd_config.access.deny_groups %} {{ names }}{% if not loop.last %}{% endif %}{% endfor %}
+  {% endif %}
+  {%- if sshd_config.access.allow_groups is defined and sshd_config.access.allow_groups %}
+AllowGroups {% for names in sshd_config.access.allow_groups %} {{ names }}{% if not loop.last %}{% endif %}{% endfor %}
+  {% endif %}
 {% endif %}
 
 
@@ -150,8 +150,8 @@ AllowGroups {%- for names in access.allow_groups %} {{ names }}{% if not loop.la
 #	AllowTcpForwarding no
 #	PermitTTY no
 #	ForceCommand cvs server
-{% if root.remote_ip is defined and root.remote_ip and root.allow is defined and root.allow == true %}
-    {% for remote_ip in root.remote_ip and root.remote_ip %}
+{% if sshd_config.root.remote_ip is defined and sshd_config.root.remote_ip and sshd_config.root.allow is defined and sshd_config.root.allow == true %}
+    {% for remote_ip in sshd_config.root.remote_ip and sshd_config.root.remote_ip %}
 Match Address {{ remote_ip }} User root
         PermitRootLogin forced-commands-only
         DisableForwarding yes

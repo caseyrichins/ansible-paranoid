@@ -1,2 +1,23 @@
 ---
 enable_2FA: 'false | default(omit)'
+
+sshd_config:
+  root:
+    allow: no
+    remote_ip:
+      - 192.168.1.121
+      - 192.168.1.134
+  password_login: "disabled"
+  access:
+    restrict: false
+    deny_users:
+      - john
+      - doug
+    allow_users:
+      - bill
+    deny_groups:
+      - cvs
+      - git
+    allow_groups:
+      - sudo
+      - wheel

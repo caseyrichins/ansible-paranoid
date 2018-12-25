@@ -1,13 +1,25 @@
 ---
 - name: Set SSH Banner
-  copy: src=issue dest=/etc/issue owner=root group=root mode=0744
+  copy: 
+    src: "{{ role_path }}/files/issue" 
+    dest: /etc/issue 
+    owner: root 
+    group: root 
+    mode: 0744
 
 - name: Set SSH Configuration
-  template: src=sshd_config.j2 dest=/etc/ssh/sshd_config owner=root group=root mode=0600 backup=yes
+  template: 
+    src: "{{ role_path }}/templates/sshd_config.j2" 
+    dest: /etc/ssh/sshd_config 
+    owner: root 
+    group: root 
+    mode: 0600 
+    validate: /usr/sbin/sshd -t -f %s
+    backup: yes
+    trim_blocks: no
   with_items:
     - "{{ sshd_config }}"
   notify:
-      - restart sshd
-      - restart ssh
-  when: sshd_config is defined and sshd_config
+    - Restart sshd service
+  when: (sshd_config is defined and sshd_config)
   register: sshd
