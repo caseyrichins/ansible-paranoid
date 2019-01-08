@@ -120,6 +120,9 @@ ClientAliveCountMax 3
 
 # no default banner path
 Banner /etc/issue
+{%- if ansible_os_family == 'Debian' %}
+DebianBanner no
+{%- endif %}
 
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
