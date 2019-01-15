@@ -1,0 +1,22 @@
+# Set ipv6 disabled for defaults 
+- sysctl:
+    name: "{{ item }}"
+    value: 1
+    sysctl_set: yes
+    state: present
+  loop:
+    - net.ipv6.conf.all.disable_ipv6
+    - net.ipv6.conf.default.disable_ipv6
+      #    - net.ipv6.conf.{{ansible_interfaces}}.disable_ipv6
+
+# Set ipv6 disabled for all defined interfaces
+- sysctl:
+    name: "net.ipv6.conf.{{ifname}}.disable_ipv6"
+    value: 1
+    sysctl_set: yes
+    state: present
+  with_items:
+    - "{{ ansible_interfaces }}"
+          #    - "{{ ansible_interfaces }}"
+  loop_control:
+    loop_var: ifname

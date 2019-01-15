@@ -17,3 +17,15 @@
         - secure_configs
   tags:
     - always
+
+- name: Turn off ipv6 functionality
+  include_tasks:
+    file: disable_ipv6.yml
+    apply:
+      tags:
+        - secure_configs
+        - disable_ipv6
+        - no_ipv6
+  tags:
+   - always
+  when: (enable_ipv6 is undefined or (enable_ipv6 is defined and enable_ipv6 != "true"))
