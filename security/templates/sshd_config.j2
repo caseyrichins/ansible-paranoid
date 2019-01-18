@@ -32,14 +32,14 @@ LogLevel VERBOSE
 # Authentication:
 # Password based logins are disabled - only public key based logins are allowed.
 {% if sshd_config.password_login is defined and sshd_config.password_login == "enabled" %}
-AuthenticationMethods publickey,password publickey
+AuthenticationMethods publickey password
 {% else %}
 AuthenticationMethods publickey
 {% endif %}
 
 LoginGraceTime 1m
 PermitRootLogin no
-#StrictModes yes
+StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
 
@@ -117,7 +117,11 @@ ClientAliveCountMax 3
 #PermitTunnel no
 #ChrootDirectory none
 #VersionAddendum none
-
+{% if ansible_os_family == 'Debian' %}
+AllowGroups sudo ssh
+{% elif ansible_os_family == 'Redhat' %}
+AllowGroups wheel ssh
+{% endif %}
 # no default banner path
 Banner /etc/issue
 {%- if ansible_os_family == 'Debian' %}
@@ -144,8 +148,6 @@ DenyGroups {% for names in sshd_config.access.deny_groups %} {{ names }}{% if no
 AllowGroups {% for names in sshd_config.access.allow_groups %} {{ names }}{% if not loop.last %}{% endif %}{% endfor %}
   {% endif %}
 {% endif %}
-
-
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs

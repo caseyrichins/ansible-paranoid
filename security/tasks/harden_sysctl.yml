@@ -1,0 +1,98 @@
+---
+## Settings to enable in sysctl
+#
+- sysctl:
+    name: "{{ item }}"
+    value: 1
+    sysctl_set: yes
+    state: present
+  loop:
+    - net.ipv4.icmp_echo_ignore_broadcasts
+    - net.ipv4.icmp_ignore_bogus_error_responses
+    - net.ipv4.tcp_rfc1337
+
+## Settings to disable in sysctl
+#
+- sysctl:
+    name: "{{ item }}"
+    value: 0
+    sysctl_set: yes
+    state: present
+  loop:
+    - net.ipv4.ip_forward
+    - kernel.sysrq
+
+# Enable Log Spoofed Packets, Source Routed Packets, Redirect Packets
+- sysctl:
+    name: "net.ipv4.conf.{{ifname}}.log_martians"
+    value: 1
+    sysctl_set: yes
+    state: present
+  with_items:
+    - "{{ ansible_interfaces }}"
+    - "default"
+    - "all"
+  loop_control:
+    loop_var: ifname
+
+# Disables IP source routing
+- sysctl:
+    name: "net.ipv4.conf.{{ifname}}.accept_source_route"
+    value: 0
+    sysctl_set: yes
+    state: present
+  with_items:
+    - "{{ ansible_interfaces }}"
+    - "default"
+    - "all"
+  loop_control:
+    loop_var: ifname
+
+# Enable IP spoofing protection, turn on source route verification
+- sysctl:
+    name: "net.ipv4.conf.{{ifname}}.rp_filter"
+    value: 1
+    sysctl_set: yes
+    state: present
+  with_items:
+    - "{{ ansible_interfaces }}"
+    - "default"
+    - "all"
+  loop_control:
+    loop_var: ifname
+
+# Disable ICMP Redirect Acceptance
+- sysctl:
+    name: "net.ipv4.conf.{{ifname}}.accept_redirects"
+    value: 0
+    sysctl_set: yes
+    state: present
+  with_items:
+    - "{{ ansible_interfaces }}"
+    - "default"
+    - "all"
+  loop_control:
+    loop_var: ifname
+
+# Disable Sending ICMP Redirect, Not a router
+- sysctl:
+    name: "net.ipv4.conf.{{ifname}}.send_redirects"
+    value: 0
+    sysctl_set: yes
+    state: present
+  with_items:
+    - "{{ ansible_interfaces }}"
+    - "default"
+    - "all"
+  loop_control:
+    loop_var: ifname
+
+#Enable ExecShield protection
+#Set value to 1 or 2 (recommended) 
+- sysctl:
+    name: "{{ item }}"
+    value: 2
+    sysctl_set: yes
+    state: present
+  with_items:
+    - "kernel.randomize_va_space"
