@@ -44,9 +44,8 @@
 - name: Eanble ledger accounting PPA
   apt_repository:
     repo: ppa:mbudde/ledger
-    codename: xenial
 
-- name: Eanble ledger accounting PPA
+- name: Eanble Multiboot USB PPA
   apt_repository:
     repo: ppa:mkusb/ppa
 
