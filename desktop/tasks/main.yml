@@ -6,6 +6,12 @@
     cache_valid_time: 3600
     autoremove: yes
 
+- name: Install aptitude for ansible apt module
+  apt:
+    name:
+      - aptitude
+    state: latest
+
 - name: Import Tasks
   include_tasks: "{{ task_file }}"
   with_items:

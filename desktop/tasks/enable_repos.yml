@@ -44,6 +44,7 @@
 - name: Eanble ledger accounting PPA
   apt_repository:
     repo: ppa:mbudde/ledger
+    codename: "{{ansible_distribution_release}}"
 
 - name: Eanble Multiboot USB PPA
   apt_repository:
@@ -51,5 +52,5 @@
 
 - name: Enable Duosecurity Repository
   apt_repository:
-    repo: 'deb https://pkg.duosecurity.com/Ubuntu xenial main'
+    repo: 'deb https://pkg.duosecurity.com/Ubuntu {{ansible_distribution_release}} main'
     filename: 'duosecurity'

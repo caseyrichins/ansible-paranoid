@@ -1,45 +1,39 @@
 ---
 - name: Install common desktop packages
   apt:
-    name: "{{ desktop_pkg }}"
-    state: present
-  with_items:
-    - xserver-xorg
-    - x11-common
-    - i3
-    - i3-wm
-    - i3lock
-    - i3status
-    - slim
-    - dbus-x11
-    - google-chrome-stable
-    - krdc
-    - feh
-    - arandr
-    - rdesktop
-    - dnscrypt-proxy
-    - dnscrypt-proxy-plugins
-    - mkusb
-    - terminator
-    - irssi
-    - pulseaudio
-    - alsa-utils
-  loop_control:
-    loop_var: desktop_pkg
+    name:
+      - xserver-xorg
+      - x11-common
+      - i3
+      - i3-wm
+      - i3lock
+      - i3status
+      - slim
+      - dbus-x11
+      - google-chrome-stable
+      - krdc
+      - feh
+      - arandr
+      - rdesktop
+      - dnscrypt-proxy
+      - dnscrypt-proxy-plugins
+      - mkusb
+      - terminator
+      - irssi
+      - pulseaudio
+      - alsa-utils
+    state: latest
 
 
 - name: Install extra desktop packages
   apt:
-    name: "{{ extra_pkg }}"
+    name:
+      - libdvdcss2
+      - libdvdnav4
+      - libdvdread4
+      - k3b
+      - libreoffice
+      - ledger
+      - obs-studio
+      - dvd+rw-tools
     state: present
-  with_items:
-    - libdvdcss2
-    - libdvdnav4
-    - libdvdread4
-    - k3b
-    - libreoffice
-    - ledger
-    - obs-studio
-    - dvd+rw-tools
-  loop_control:
-    loop_var: extra_pkg
