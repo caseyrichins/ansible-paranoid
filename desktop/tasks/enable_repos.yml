@@ -44,13 +44,13 @@
 - name: Eanble ledger accounting PPA
   apt_repository:
     repo: ppa:mbudde/ledger
-    codename: xenial
+    codename: "{{ansible_distribution_release}}"
 
-- name: Eanble ledger accounting PPA
+- name: Eanble Multiboot USB PPA
   apt_repository:
     repo: ppa:mkusb/ppa
 
 - name: Enable Duosecurity Repository
   apt_repository:
-    repo: 'deb https://pkg.duosecurity.com/Ubuntu xenial main'
+    repo: 'deb https://pkg.duosecurity.com/Ubuntu {{ansible_distribution_release}} main'
     filename: 'duosecurity'
